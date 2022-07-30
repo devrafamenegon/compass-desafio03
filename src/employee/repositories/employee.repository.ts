@@ -12,6 +12,6 @@ export class EmployeeRepository {
   ) {}
 
   async create(employee: CreateEmployeeDTO): Promise<Employee> {
-    return await this.employeeEntity.create(employee);
+    return await this.employeeEntity.save(employee);
   }
 }

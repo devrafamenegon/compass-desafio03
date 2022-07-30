@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { Equals, IsDate, IsEnum, IsNotEmpty, IsString, MaxDate } from "class-validator";
+import { IsDate, IsEnum, IsNotEmpty, IsString, MaxDate } from "class-validator";
 import { OfficeFormat } from "../entities/employee.entity";
 
 export class CreateEmployeeDTO {
