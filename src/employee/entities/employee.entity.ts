@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "src/product/entities/product.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 export enum OfficeFormat {
   MANAGER = 'manager',
@@ -40,4 +41,7 @@ export class Employee {
     default: 'activate'
   })
   situation: string
-}
+
+  @OneToMany(type => Product, product => product.employee)
+  products: Product[];
+} 
