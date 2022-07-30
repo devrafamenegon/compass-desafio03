@@ -1,5 +1,5 @@
 import { Employee } from "src/employee/entities/employee.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Product {
@@ -19,8 +19,9 @@ export class Product {
   @Column({
     type: 'float',
   })
-  office: number
+  price: number
 
-  @ManyToOne(type => Employee, employee => employee.products) 
+  @ManyToOne(() => Employee, (employee) => employee.products) 
+  @JoinColumn({ name: "employee_id" })
   employee: Employee;
 }
