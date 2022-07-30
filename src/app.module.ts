@@ -6,6 +6,7 @@ import { EmployeeModule } from './employee/employee.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Employee } from './employee/entities/employee.entity';
 
 
 @Module({
@@ -18,7 +19,7 @@ import { AppService } from './app.service';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: 'maries_company',
-      entities: [],
+      entities: [Employee],
       synchronize: true,
       autoLoadEntities: true,
     }),
