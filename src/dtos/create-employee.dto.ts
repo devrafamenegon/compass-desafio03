@@ -14,7 +14,9 @@ export class CreateEmployeeDTO {
   @IsNotEmpty()
   cpf: string;
   
-  @ApiProperty()
+  @ApiProperty({
+    enum: OfficeFormat,
+  })
   @IsEnum(OfficeFormat)
   @IsNotEmpty()
   office: OfficeFormat;
