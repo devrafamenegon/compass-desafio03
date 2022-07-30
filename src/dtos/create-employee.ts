@@ -1,6 +1,6 @@
 import { Type } from "class-transformer";
 import { IsDate, IsEnum, IsNotEmpty, IsString, MaxDate } from "class-validator";
-import { OfficeFormat } from "../entities/employee.entity";
+import { OfficeFormat } from "../employee/entities/employee.entity";
 
 export class CreateEmployeeDTO {
   @IsString()
