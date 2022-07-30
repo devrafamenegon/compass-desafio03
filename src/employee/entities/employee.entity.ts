@@ -32,11 +32,11 @@ export class Employee {
   @Column({
     type: 'date'
   })
-  birthday
+  birthday: Date
 
   @Column({
     type: 'varchar',
     length: 10,
   })
-  situation
+  situation: string
 }
