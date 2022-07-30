@@ -4,6 +4,7 @@ import { DataSource } from 'typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EmployeeModule } from './employee/employee.module';
 import { Employee } from './employee/entities/employee.entity';
+import { Product } from './product/entities/product.entity';
 
 
 @Module({
@@ -16,7 +17,7 @@ import { Employee } from './employee/entities/employee.entity';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: 'maries_company',
-      entities: [Employee],
+      entities: [Employee, Product],
       synchronize: true,
       autoLoadEntities: true,
     }),
