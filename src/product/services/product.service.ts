@@ -8,6 +8,14 @@ import { ProductRepository } from "../repositories/product.repository";
 export class ProductService {
   constructor(private readonly productRepository: ProductRepository) {}
 
+  findAll(): Promise<Product[]> {
+    return this.productRepository.findAll();
+  }
+
+  findOne(uuid: string): Promise<Product> {
+    return this.productRepository.findOne(uuid);
+  }
+
   create(product: CreateProductDTO): Promise<Product> {
     return this.productRepository.create(product);
   }

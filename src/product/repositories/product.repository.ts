@@ -11,6 +11,14 @@ export class ProductRepository {
     @InjectRepository(Product)
     private productEntity: Repository<Product>,
   ) {}
+  
+  async findAll(): Promise<Product[]> {
+    return await this.productEntity.find();
+  }
+
+  async findOne(uuid: string): Promise<Product> {
+    return await this.productEntity.findOne({ where: {product_id: uuid}});
+  }
 
   async create(product: CreateProductDTO): Promise<Product> {
     return await this.productEntity.save(product);

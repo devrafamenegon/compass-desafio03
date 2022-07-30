@@ -1,5 +1,5 @@
-import { Body, Controller, Post } from "@nestjs/common";
-import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Get, Post } from "@nestjs/common";
+import { ApiBody, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { CreateProductDTO } from "src/dtos/createProduct.dto";
 import { Product } from "../entities/product.entity";
 import { ProductService } from "../services/product.service";
@@ -8,6 +8,21 @@ import { ProductService } from "../services/product.service";
 @Controller('api/v1/product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
+
+  @ApiResponse({ status: 200, description: 'Product Listing.'})
+  @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
+  @Get()
+  findAll(): Promise<Product[]> {
+    return this.productService.findAll();
+  }
+
+  @ApiParam({ name: 'uuid', type: String })
+  @ApiResponse({ status: 200, description: 'Product Listing.'})
+  @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
+  @Get(':uuid')
+  findOne(uuid: string): Promise<Product> {
+    return this.productService.findOne(uuid);
+  }
 
   @ApiBody({ type: [CreateProductDTO] })
   @ApiResponse({ status: 201, description: 'The Product was successfully registered.'})
