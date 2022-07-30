@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { UpdateEmployeeDTO } from "src/dtos/updateEmployee.dto";
+import { UpdateEmployeeDTO } from "../../dtos/updateEmployee.dto";
 import { CreateEmployeeDTO } from "../../dtos/createEmployee.dto";
 import { Employee } from "../entities/employee.entity";
 import { EmployeeService } from "../services/employee.service";
