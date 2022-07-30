@@ -11,6 +11,10 @@ export class EmployeeService {
     return this.employeeRepository.findAll();
   }
 
+  findOne(uuid: string): Promise<Employee> {
+    return this.employeeRepository.findOne(uuid);
+  }
+
   create(employee: CreateEmployeeDTO): Promise<Employee> {
     return this.employeeRepository.create(employee);
   }

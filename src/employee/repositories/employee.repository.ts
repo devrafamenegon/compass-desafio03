@@ -14,6 +14,11 @@ export class EmployeeRepository {
   async findAll(): Promise<Employee[]> {
     return await this.employeeEntity.find();
   }
+
+  async findOne(uuid: string): Promise<Employee> {
+    return await this.employeeEntity.findOne({ where: {employee_id: uuid}});
+  }
+
   async create(employee: CreateEmployeeDTO): Promise<Employee> {
     return await this.employeeEntity.save(employee);
   }

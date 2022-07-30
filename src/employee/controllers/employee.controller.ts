@@ -12,6 +12,11 @@ export class EmployeeController {
     return this.employeeService.findAll();
   }
 
+  @Get(':uuid')
+  findOne(uuid: string): Promise<Employee> {
+    return this.employeeService.findOne(uuid);
+  }
+
   @Post()
   create(@Body() employee: CreateEmployeeDTO): Promise<Employee> {
     return this.employeeService.create(employee);
