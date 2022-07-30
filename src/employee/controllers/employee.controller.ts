@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
-import { CreateEmployeeDTO } from "../../dtos/create-employee";
+import { Body, Controller, Get, Post, Put } from "@nestjs/common";
+import { UpdateEmployeeDTO } from "src/dtos/update-employee.dto";
+import { CreateEmployeeDTO } from "../../dtos/create-employee.dto";
 import { Employee } from "../entities/employee.entity";
 import { EmployeeService } from "../services/employee.service";
 
@@ -20,5 +21,10 @@ export class EmployeeController {
   @Post()
   create(@Body() employee: CreateEmployeeDTO): Promise<Employee> {
     return this.employeeService.create(employee);
+  }
+
+  @Put(':uuid')
+  update(uuid: string, @Body() employee: UpdateEmployeeDTO): Promise<Employee> {
+    return this.employeeService.update(uuid, employee);
   }
 }
