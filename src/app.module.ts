@@ -4,7 +4,8 @@ import { DataSource } from 'typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EmployeeModule } from './employee/employee.module';
 import { Employee } from './employee/entities/employee.entity';
-import { Product } from './product/entities/product.entity';
+import { Product } from './/product/entities/product.entity';
+import { ProductModule } from './product/product.module';
 
 
 @Module({
@@ -21,7 +22,8 @@ import { Product } from './product/entities/product.entity';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    EmployeeModule
+    EmployeeModule,
+    ProductModule
   ],
   controllers: [],
   providers: [],
