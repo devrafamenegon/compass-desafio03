@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { UpdateEmployeeDTO } from "src/dtos/update-employee.dto";
+import { UpdateEmployeeDTO } from "src/dtos/updateEmployee.dto";
 import { Repository } from "typeorm";
-import { CreateEmployeeDTO } from "../../dtos/create-employee.dto";
+import { CreateEmployeeDTO } from "../../dtos/createEmployee.dto";
 import { Employee } from "../entities/employee.entity";
 
 @Injectable()
@@ -29,4 +29,7 @@ export class EmployeeRepository {
     return await this.employeeEntity.findOne({ where: {employee_id: uuid}});
   }
 
+  async delete(uuid: string): Promise<void> {
+    await this.employeeEntity.delete({ employee_id: uuid });
+  }
 }

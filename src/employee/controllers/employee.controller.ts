@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { UpdateEmployeeDTO } from "src/dtos/update-employee.dto";
-import { CreateEmployeeDTO } from "../../dtos/create-employee.dto";
+import { UpdateEmployeeDTO } from "src/dtos/updateEmployee.dto";
+import { CreateEmployeeDTO } from "../../dtos/createEmployee.dto";
 import { Employee } from "../entities/employee.entity";
 import { EmployeeService } from "../services/employee.service";
 
@@ -16,7 +16,7 @@ export class EmployeeController {
   findAll(): Promise<Employee[]> {
     return this.employeeService.findAll();
   }
-  
+
   @ApiParam({ name: 'uuid', type: String })
   @ApiResponse({ status: 200, description: 'Employee Listing.'})
   @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
@@ -38,7 +38,15 @@ export class EmployeeController {
   @ApiResponse({ status: 200, description: 'Employee Listing.'})
   @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
   @Put(':uuid')
-  update(@Param() uuid: string, @Body() employee: UpdateEmployeeDTO): Promise<Employee> {
+  update(@Param('uuid') uuid: string, @Body() employee: UpdateEmployeeDTO): Promise<Employee> {
     return this.employeeService.update(uuid, employee);
+  }
+
+  @ApiParam({ name: 'uuid', type: String })
+  @ApiResponse({ status: 204 })
+  @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
+  @Delete(':uuid')
+  delete(@Param('uuid') uuid: string): Promise<void> {
+    return this.employeeService.delete(uuid);
   }
 }

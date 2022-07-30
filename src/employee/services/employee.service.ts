@@ -1,6 +1,6 @@
-import { Injectable, Query } from "@nestjs/common";
-import { UpdateEmployeeDTO } from "src/dtos/update-employee.dto";
-import { CreateEmployeeDTO } from "../../dtos/create-employee.dto";
+import { Injectable } from "@nestjs/common";
+import { UpdateEmployeeDTO } from "../../dtos/updateEmployee.dto";
+import { CreateEmployeeDTO } from "../../dtos/createEmployee.dto";
 import { Employee } from "../entities/employee.entity";
 import { EmployeeRepository } from "../repositories/employee.repository";
 
@@ -22,5 +22,9 @@ export class EmployeeService {
 
   update(uuid: string, employee: UpdateEmployeeDTO): Promise<Employee> {
     return this.employeeRepository.update(uuid, employee);
+  }
+
+  delete(uuid: string): Promise<void> {
+    return this.employeeRepository.delete(uuid);
   }
 }
