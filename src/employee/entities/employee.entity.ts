@@ -37,6 +37,7 @@ export class Employee {
   @Column({
     type: 'varchar',
     length: 10,
+    default: 'activate'
   })
   situation: string
 }
