@@ -19,7 +19,7 @@ export class IsUniqueCpfConstraint implements ValidatorConstraintInterface {
   }
 
   defaultMessage(): string {
-    return "CPF already exists";
+    return "cpf already exists in database";
   }
 }
 
