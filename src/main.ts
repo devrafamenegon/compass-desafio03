@@ -11,7 +11,7 @@ async function bootstrap() {
     .setTitle('Maries Company API')
     .setDescription('API for controlling Employees and Products')
     .setVersion('1.0')
-    .addTag('employees')
+    .addTag('employees', 'products')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/v1', app, document);

@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Product } from "src/product/entities/product.entity";
 import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -9,14 +10,17 @@ export enum OfficeFormat {
 
 @Entity()
 export class Employee {
+  @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   employee_id: string
 
+  @ApiProperty()
   @Column({
     type: 'varchar',
   })
   name: string
 
+  @ApiProperty()
   @Column({
     type: 'varchar',
     length: 11,
@@ -24,17 +28,20 @@ export class Employee {
   })
   cpf: string
 
+  @ApiProperty()
   @Column({
     type: 'enum',
     enum: OfficeFormat,
   })
   office: OfficeFormat
 
+  @ApiProperty()
   @Column({
     type: 'date'
   })
   birthday: Date
 
+  @ApiProperty()
   @Column({
     type: 'varchar',
     length: 10,
