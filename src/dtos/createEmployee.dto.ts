@@ -1,6 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsDate, IsEnum, IsNotEmpty, IsString, MaxDate } from "class-validator";
+import { IsAlpha, IsAlphanumeric, IsDate, IsEnum, IsNotEmpty, IsNumberString, IsString, Length, MaxDate } from "class-validator";
+import { IsUniqueCpf } from "src/employee/validators/IsUniqueCpf.validator";
+import { IsValidCpf } from "src/employee/validators/IsValidCpf.validator";
 import { OfficeFormat } from "../employee/entities/employee.entity";
 
 export class CreateEmployeeDTO {
@@ -10,7 +12,10 @@ export class CreateEmployeeDTO {
   name: string;
   
   @ApiProperty()
-  @IsString()
+  @IsValidCpf()
+  @IsUniqueCpf()
+  @Length(11)
+  @IsNumberString()
   @IsNotEmpty()
   cpf: string;
   
