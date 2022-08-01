@@ -4,9 +4,9 @@ import { Employee } from "../entities/employee.entity";
 
 @Injectable()
 export class ResponseTransformerInterceptor implements NestInterceptor {
-  validateResponse(value: Employee): Employee {
-    value.cpf = value.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-    return value;
+  formatCpf(cpf: string): string {
+    cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    return cpf;
   }
   
   intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
@@ -16,12 +16,12 @@ export class ResponseTransformerInterceptor implements NestInterceptor {
         map((data) => {
           if (data instanceof Array) {
             data.forEach((value: Employee) => {
-              this.validateResponse(value);
+              value.cpf = this.formatCpf(value.cpf);
               return value;
             })
           }
           else {
-            this.validateResponse(data);
+            data.cpf = this.formatCpf(data.cpf);
           }
 
           return data;
