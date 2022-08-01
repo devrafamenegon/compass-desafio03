@@ -2,6 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsAlpha, IsAlphanumeric, IsDate, IsEnum, IsNotEmpty, IsNumberString, IsString, Length, MaxDate } from "class-validator";
 import { IsUniqueCpf } from "src/employee/validators/IsUniqueCpf.validator";
+import { IsValidBirthday } from "src/employee/validators/IsValidBirthDay.validator";
 import { IsValidCpf } from "src/employee/validators/IsValidCpf.validator";
 import { OfficeFormat } from "../employee/entities/employee.entity";
 
@@ -27,9 +28,8 @@ export class CreateEmployeeDTO {
   office: OfficeFormat;
   
   @ApiProperty()
-  @Type(() => Date)
-  @MaxDate(new Date())
-  @IsDate()
+  @IsValidBirthday()
+  @IsString()
   @IsNotEmpty()
-  birthday: Date;
+  birthday: string;
 }

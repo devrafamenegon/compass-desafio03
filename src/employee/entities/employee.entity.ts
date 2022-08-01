@@ -37,9 +37,9 @@ export class Employee {
 
   @ApiProperty()
   @Column({
-    type: 'date'
+    type: 'varchar'
   })
-  birthday: Date
+  birthday: string
 
   @ApiProperty()
   @Column({
