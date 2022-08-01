@@ -26,7 +26,10 @@ export class Product {
   })
   price: number
 
-  @ManyToOne(() => Employee, (employee) => employee.products) 
-  @JoinColumn({ name: "employee_id" })
+  @ManyToOne(type => Employee, employee => employee) 
+  @JoinColumn({ name: 'employee_id'})
   employee: Employee;
+
+  @Column()
+  employee_id: string;
 }
