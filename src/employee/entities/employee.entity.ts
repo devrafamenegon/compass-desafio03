@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Product } from "src/product/entities/product.entity";
-import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 export enum OfficeFormat {
   MANAGER = 'manager',

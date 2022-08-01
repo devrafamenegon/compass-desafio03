@@ -1,5 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsPositive, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsPositive, IsString, IsUUID } from "class-validator";
+import { IsActiveManager } from "src/product/validators/IsActiveManager.validator";
+import { IsValidEmployee } from "src/product/validators/IsValidEmployee.validator";
 
 export class CreateProductDTO {
   @ApiProperty()
@@ -13,13 +15,15 @@ export class CreateProductDTO {
   category: string;
 
   @ApiProperty()
-  @IsNumber()
   @IsPositive()
+  @IsNumber()
   @IsNotEmpty()
   price: number;
 
   @ApiProperty()
-  @IsString()
+  @IsActiveManager()
+  @IsValidEmployee()
+  @IsUUID()
   @IsNotEmpty()
   employee_id: string;
 }
