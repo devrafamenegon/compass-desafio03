@@ -1,15 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { UpdateEmployeeDTO } from "../../dtos/updateEmployee.dto";
 import { CreateEmployeeDTO } from "../../dtos/createEmployee.dto";
 import { Employee } from "../entities/employee.entity";
 import { EmployeeService } from "../services/employee.service";
+import { ResponseTransformerInterceptor } from "../interceptors/responseTransformer.interceptor";
 
 @ApiTags('employees')
+@UseInterceptors(ResponseTransformerInterceptor)
 @Controller('api/v1/employee')
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
-
+  
   @ApiResponse({ status: 200, description: 'Employee Listing.'})
   @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
   @Get()
