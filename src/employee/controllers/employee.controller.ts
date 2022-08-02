@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseInterceptors } from "@nestjs/common";
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { UpdateEmployeeDTO } from "../../dtos/updateEmployee.dto";
 import { CreateEmployeeDTO } from "../../dtos/createEmployee.dto";
@@ -23,7 +23,7 @@ export class EmployeeController {
   @ApiResponse({ status: 200, description: 'Employee Listing.'})
   @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
   @Get(':uuid')
-  findOne(uuid: string): Promise<Employee> {
+  findOne(@Param('uuid', ParseUUIDPipe) uuid: string): Promise<Employee> {
     return this.employeeService.findOne(uuid);
   }
 
@@ -40,7 +40,7 @@ export class EmployeeController {
   @ApiResponse({ status: 200, description: 'Employee Listing.'})
   @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
   @Put(':uuid')
-  update(@Param('uuid') uuid: string, @Body() employee: UpdateEmployeeDTO): Promise<Employee> {
+  update(@Param('uuid', ParseUUIDPipe) uuid: string, @Body() employee: UpdateEmployeeDTO): Promise<Employee> {
     return this.employeeService.update(uuid, employee);
   }
 
@@ -48,7 +48,7 @@ export class EmployeeController {
   @ApiResponse({ status: 204 })
   @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
   @Delete(':uuid')
-  delete(@Param('uuid') uuid: string): Promise<void> {
+  delete(@Param('uuid', ParseUUIDPipe) uuid: string): Promise<void> {
     return this.employeeService.delete(uuid);
   }
 }

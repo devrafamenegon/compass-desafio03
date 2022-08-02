@@ -16,12 +16,12 @@ export class ResponseTransformerInterceptor implements NestInterceptor {
         map((data) => {
           if (data instanceof Array) {
             data.forEach((value: Employee) => {
-              value.cpf = this.formatCpf(value.cpf);
+              if(value.cpf) value.cpf = this.formatCpf(value.cpf);
               return value;
             })
           }
           else {
-            data.cpf = this.formatCpf(data.cpf);
+            if(data.cpf) data.cpf = this.formatCpf(data.cpf);
           }
 
           return data;

@@ -19,6 +19,10 @@ export class ProductRepository {
   async findOne(uuid: string): Promise<Product> {
     return await this.productEntity.findOne({ where: {product_id: uuid}});
   }
+  
+  async findByEmployee(employeeId: string): Promise<Product> {
+    return await this.productEntity.findOne({ where: { employee_id: employeeId }});
+  }
 
   async create(product: CreateProductDTO): Promise<Product> {
     return await this.productEntity.save(product);
