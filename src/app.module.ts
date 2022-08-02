@@ -17,7 +17,7 @@ import { ProductModule } from './product/product.module';
       port: 3306,
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
-      database: 'maries_company',
+      database: process.env.DATABASE_NAME,
       entities: [Employee, Product],
       synchronize: true,
       autoLoadEntities: true,
