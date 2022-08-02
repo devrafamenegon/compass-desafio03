@@ -7,13 +7,13 @@ import { EmployeeService } from "../services/employee.service";
 import { ResponseTransformerInterceptor } from "../interceptors/responseTransformer.interceptor";
 
 @ApiTags('employees')
+@UseInterceptors(ResponseTransformerInterceptor)
 @Controller('api/v1/employee')
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
   
   @ApiResponse({ status: 200, description: 'Employee Listing.'})
   @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
-  @UseInterceptors(ResponseTransformerInterceptor)
   @Get()
   findAll(): Promise<Employee[]> {
     return this.employeeService.findAll();
@@ -22,7 +22,6 @@ export class EmployeeController {
   @ApiParam({ name: 'uuid', type: String })
   @ApiResponse({ status: 200, description: 'Employee Listing.'})
   @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
-  @UseInterceptors(ResponseTransformerInterceptor)
   @Get(':uuid')
   findOne(@Param('uuid', ParseUUIDPipe) uuid: string): Promise<Employee> {
     return this.employeeService.findOne(uuid);
@@ -31,7 +30,6 @@ export class EmployeeController {
   @ApiBody({ type: [CreateEmployeeDTO] })
   @ApiResponse({ status: 201, description: 'The Employee was successfully registered.'})
   @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
-  @UseInterceptors(ResponseTransformerInterceptor)
   @Post()
   create(@Body() employee: CreateEmployeeDTO): Promise<Employee> {
     return this.employeeService.create(employee);
@@ -41,7 +39,6 @@ export class EmployeeController {
   @ApiParam({ name: 'uuid', type: String })
   @ApiResponse({ status: 200, description: 'Employee Listing.'})
   @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
-  @UseInterceptors(ResponseTransformerInterceptor)
   @Put(':uuid')
   update(@Param('uuid', ParseUUIDPipe) uuid: string, @Body() employee: UpdateEmployeeDTO): Promise<Employee> {
     return this.employeeService.update(uuid, employee);
