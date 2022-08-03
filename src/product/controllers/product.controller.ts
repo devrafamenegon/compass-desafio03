@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, ParseUUIDPipe, Post } from "@nestjs/common";
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { CreateProductDTO } from "src/dtos/createProduct.dto";
 import { Product } from "../entities/product.entity";
@@ -20,7 +20,7 @@ export class ProductController {
   @ApiResponse({ status: 200, description: 'Product Listing.'})
   @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
   @Get(':uuid')
-  findOne(uuid: string): Promise<Product> {
+  findOne(@Param('uuid', ParseUUIDPipe) uuid: string): Promise<Product> {
     return this.productService.findOne(uuid);
   }
 
