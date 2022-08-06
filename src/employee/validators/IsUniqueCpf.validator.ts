@@ -1,15 +1,20 @@
 import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
 import { registerDecorator, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface } from "class-validator";
-import { EmployeeRepository } from "../repositories/employee.repository";
+import { Repository } from "typeorm";
+import { Employee } from "../entities/employee.entity";
 
 @Injectable()
 @ValidatorConstraint({ async: true })
 export class IsUniqueCpfConstraint implements ValidatorConstraintInterface {
-  constructor(private employeeRepository: EmployeeRepository) {}
+  constructor(
+    @InjectRepository(Employee)
+    private employeeEntity: Repository<Employee>,
+  ) {}
 
   async validate(value: string): Promise<boolean> {
     try {
-      const employeeList = await this.employeeRepository.findAll();
+      const employeeList = await this.employeeEntity.find();
       const existingEmployee = employeeList.find(e => e.cpf === value);
       return !existingEmployee;
     } catch(error) {
