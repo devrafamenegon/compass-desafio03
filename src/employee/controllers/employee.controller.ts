@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Query, UseInterceptors } from "@nestjs/common";
 import { ApiBody, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { UpdateEmployeeDTO } from "../../dtos/updateEmployee.dto";
 import { CreateEmployeeDTO } from "../../dtos/createEmployee.dto";
 import { Employee } from "../entities/employee.entity";
 import { EmployeeService } from "../services/employee.service";
 import { ResponseTransformerInterceptor } from "../interceptors/responseTransformer.interceptor";
+import { QueryParamsDTO } from "src/dtos/queryParams.dto";
 
 @ApiTags('employees')
 @UseInterceptors(ResponseTransformerInterceptor)
@@ -15,8 +16,8 @@ export class EmployeeController {
   @ApiResponse({ status: 200, description: 'Employee Listing.'})
   @ApiResponse({ status: 400, description: 'A contact error has occurred.'})
   @Get()
-  findAll(): Promise<Employee[]> {
-    return this.employeeService.findAll();
+  findAll(@Query() query: QueryParamsDTO): Promise<Employee[]> {
+    return this.employeeService.findAll(query);
   }
 
   @ApiParam({ name: 'uuid', type: String })

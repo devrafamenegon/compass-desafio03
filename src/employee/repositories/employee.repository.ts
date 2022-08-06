@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { QueryParamsDTO } from "src/dtos/queryParams.dto";
 import { UpdateEmployeeDTO } from "src/dtos/updateEmployee.dto";
 import { Repository } from "typeorm";
 import { CreateEmployeeDTO } from "../../dtos/createEmployee.dto";
@@ -12,8 +13,33 @@ export class EmployeeRepository {
     private employeeEntity: Repository<Employee>,
   ) {}
 
-  async findAll(): Promise<Employee[]> {
-    return await this.employeeEntity.find();
+  async findAll(query: QueryParamsDTO): Promise<Employee[]> {
+    const { name, cpf, office, birthday, situation } = query;
+
+    const queryBuilder = this.employeeEntity.createQueryBuilder('employee');
+
+    if (name) {
+      queryBuilder.andWhere('employee.name LIKE :name', { name: `%${name}%` });
+    }
+
+    if (cpf) {
+      queryBuilder.andWhere('employee.cpf LIKE :cpf', { cpf: `%${cpf}%` });
+    }
+
+    if (office) {
+      queryBuilder.andWhere('employee.office = :office', { office } );
+    }
+
+    if (birthday) {
+      queryBuilder.andWhere('employee.birthday LIKE :office', { birthday: `%${birthday}%` } );
+    }
+
+    if (situation) {
+      queryBuilder.andWhere('employee.situation = :situation', { situation } );
+    }
+
+    const employees = await queryBuilder.getMany();
+    return employees;
   }
 
   async findOne(uuid: string): Promise<Employee> {
