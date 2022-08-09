@@ -35,7 +35,12 @@ export class EmployeeService {
     return createdEmployee;
   }
 
-  update(uuid: string, employee: UpdateEmployeeDTO): Promise<Employee> {
+  async update(uuid: string, employee: UpdateEmployeeDTO): Promise<Employee> {
+    const findedEmployee = await this.employeeRepository.findOne(uuid);;
+    if (!findedEmployee) {
+      throw new NotFoundException(`Employee with uuid ${uuid} not found`);
+    }
+
     return this.employeeRepository.update(uuid, employee);
   }
 
