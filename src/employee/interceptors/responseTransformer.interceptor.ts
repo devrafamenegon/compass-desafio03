@@ -13,8 +13,8 @@ export class ResponseTransformerInterceptor implements NestInterceptor {
     return next
       .handle()
       .pipe(
-        map((data) => {
-          if (data instanceof Array) {
+        map((data: Employee) => {
+          if (data instanceof Array && data.length > 0) {
             data.forEach((value: Employee) => {
               if(value.cpf) value.cpf = this.formatCpf(value.cpf);
               return value;
@@ -23,7 +23,6 @@ export class ResponseTransformerInterceptor implements NestInterceptor {
           else {
             if(data.cpf) data.cpf = this.formatCpf(data.cpf);
           }
-
           return data;
         })
       )

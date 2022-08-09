@@ -13,7 +13,7 @@ import { ProductModule } from './product/product.module';
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'database-mysql',
       port: 3306,
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,

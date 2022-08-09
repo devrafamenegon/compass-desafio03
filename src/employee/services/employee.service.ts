@@ -4,14 +4,15 @@ import { CreateEmployeeDTO } from "../../dtos/createEmployee.dto";
 import { Employee } from "../entities/employee.entity";
 import { EmployeeRepository } from "../repositories/employee.repository";
 import { ProductRepository } from "src/product/repositories/product.repository";
+import { QueryParamsDTO } from "src/dtos/queryParams.dto";
 
 @Injectable()
 export class EmployeeService {
   constructor(private readonly employeeRepository: EmployeeRepository, 
     private readonly productRepository: ProductRepository) {}
 
-  async findAll(): Promise<Employee[]> {
-    const findedEmployees = await this.employeeRepository.findAll();
+  async findAll(query: QueryParamsDTO): Promise<Employee[]> {
+    const findedEmployees = await this.employeeRepository.findAll(query);
     if (!findedEmployees) {
       throw new BadRequestException(`A contact error has occurred.`);
     }
@@ -34,7 +35,12 @@ export class EmployeeService {
     return createdEmployee;
   }
 
-  update(uuid: string, employee: UpdateEmployeeDTO): Promise<Employee> {
+  async update(uuid: string, employee: UpdateEmployeeDTO): Promise<Employee> {
+    const findedEmployee = await this.employeeRepository.findOne(uuid);;
+    if (!findedEmployee) {
+      throw new NotFoundException(`Employee with uuid ${uuid} not found`);
+    }
+
     return this.employeeRepository.update(uuid, employee);
   }
 
